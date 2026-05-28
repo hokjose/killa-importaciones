@@ -1,0 +1,55 @@
+<header class="header">
+  <div class="left">
+    <h1>Artesanias Killa</h1>
+  </div>
+
+  <div class="right">
+    <a href="/">Inicio</a>
+    <a href="/catalogo">catálogo</a>
+    <a href="/contacto">
+      <button>Contactar</button>
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 1rem 2rem;
+    position: sticky; /* Hace que se quede pegado */
+    top: 0; /* Define que se pegue al borde superior */
+    z-index: 1000;
+  }
+
+  .left h1 {
+    margin: 0;
+  }
+
+  .right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+
+  button {
+    background: black;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #333;
+  }
+</style>

@@ -1,0 +1,393 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+const productos = [
+  {
+    nombre: "poncho Andino Premium",
+    precio: 250.0,
+    categoria: "ROPA DE ALPACA",
+    imagen: "/images/poncho_andino.png",
+  },
+
+  {
+    nombre: "cartera de cuero repujado",
+    precio: 180.0,
+    categoria: "ROPA DE ALPACA",
+    imagen: "/images/cartera_cuero.png",
+  },
+
+  {
+    nombre: "chullo tradicional cusqueño",
+    precio: 45.0,
+    categoria: "CARTERAS Y CUERO",
+    imagen: "/images/chullo_tradicional.png",
+  },
+  {
+    nombre: "chalina de alpaca solida",
+    precio: 85.0,
+    categoria: "CARTERAS Y CUERO",
+    imagen: "/images/chalina_de_alpaca.png",
+  },
+  {
+    nombre: "morral viajero",
+    precio: 120.0,
+    categoria: "CARTERAS Y CUERO",
+    imagen: "/images/morral_viajero.png",
+  },
+  {
+    nombre: "pulsera de macrame",
+    precio: 15.0,
+    categoria: "ACCESORIOS",
+    imagen: "/images/pulzera_de_macrame.png",
+  },
+];
+---
+
+<MainLayout showNavbar={false}>
+  <h2>Nuestro Catálogo</h2>
+
+  <h4 class="cata">Explora nuestros catálogos principales</h4>
+
+  <div class="topbar">
+    <div class="search-box">
+      <span>🔍</span>
+      <input
+        type="text"
+        id="input-busqueda"
+        placeholder="Buscar productos..."
+      />
+    </div>
+
+    <div class="categorias">
+      <button class="btn-filtro activo" data-categoria="todos"> Todos </button>
+      <button class="btn-filtro" data-categoria="ROPA DE ALPACA"
+        >Ropa de Alpaca</button
+      >
+      <button class="btn-filtro" data-categoria="CARTERAS Y CUERO"
+        >Carteras y Cuero</button
+      >
+      <button class="btn-filtro" data-categoria="ACCESORIOS">Accesorios</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    {
+      productos.map((p) => {
+        // Usamos el mismo ID que pusimos arriba
+        const productoId = p.nombre.toLowerCase().replace(/\s+/g, "-");
+
+        return (
+          /* La ruta ahora es /productos/ seguido del id */
+          <a href={`/productos/${productoId}`} class="card-link">
+            <div class="card" data-categoria={p.categoria}>
+              <span class="categoria">{p.categoria}</span>
+              <img src={p.imagen} alt={p.nombre} />
+              <div class="contenido">
+                <h3>{p.nombre}</h3>
+                <div class="footer">
+                  <p>S/ {p.precio.toFixed(2)}</p>
+                  <button class="btn-carrito">🛒</button>
+                </div>
+              </div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+
+  <button class="btn-volver" onclick="window.location.href='/'">
+    ⬅ Volver al inicio
+  </button>
+
+  <br />
+  <br />
+  <br />
+</MainLayout>
+
+<style>
+  .cata {
+    color: #474741;
+    font-size: 15px;
+  }
+  /*la parte del buscador*/
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1.5rem;
+
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    background: white;
+
+    border: 1px solid #ddd;
+
+    padding: 0.9rem 1rem;
+
+    border-radius: 15px;
+
+    width: 420px; /* IMPORTANTE */
+  }
+
+  .search-box input {
+    border: none;
+    outline: none;
+
+    width: 100%;
+
+    font-size: 1rem;
+  }
+
+  .categorias {
+    display: flex;
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+  .categorias button {
+    border: none;
+
+    background: transparent;
+
+    padding: 10px 18px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-weight: 500;
+
+    transition: 0.3s;
+  }
+
+  .categorias button:hover {
+    background: #f1f1f1;
+  }
+
+  .categorias .activo {
+    background: #111;
+    color: white;
+  }
+
+  /* IMPORTANTE: Estilos para que el enlace no dañe el diseño */
+  .card-link {
+    text-decoration: none; /* Quita la línea azul de los links */
+    color: inherit; /* Mantiene el color de texto original */
+    display: block; /* Hace que todo el cuadro sea clicable */
+    transition: transform 0.3s ease;
+  }
+
+  .card-link:hover {
+    transform: scale(1.02); /* Un pequeño efecto visual al pasar el mouse */
+  }
+
+  .card {
+    /* Tus estilos de card se mantienen igual */
+    cursor: pointer;
+  }
+
+  .grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card img {
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+  }
+
+  .categoria {
+    position: absolute;
+
+    top: 10px;
+    left: 10px;
+
+    background: white;
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .contenido {
+    padding: 1rem;
+  }
+
+  .contenido h3 {
+    margin-bottom: 1rem;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer p {
+    color: #00b341;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .btn-carrito {
+    border: none;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+
+    background: #f1f1f1;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+  }
+
+  .btn-carrito:hover {
+    background: black;
+    color: white;
+  }
+
+  .btn-volver {
+    display: inline-block;
+    margin-top: 2rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background-color: #f0f0f0;
+    color: #333;
+
+    padding: 10px 20px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    transition: all 0.3s ease;
+
+    font-family: inherit;
+  }
+
+  .btn-volver:hover {
+    background-color: #333;
+    color: white;
+
+    border-color: #333;
+
+    transform: scale(1.05);
+  }
+
+  .btn-volver:active {
+    transform: scale(0.95);
+  }
+</style>
+
+<script>
+  const botones = document.querySelectorAll(".btn-filtro");
+  const tarjetas = document.querySelectorAll<HTMLElement>(".card");
+
+  botones.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      // quitar activo
+      botones.forEach((b) => b.classList.remove("activo"));
+      boton.classList.add("activo");
+
+      const filtro = boton.getAttribute("data-categoria");
+
+      // mostrar/ocultar tarjetas
+      tarjetas.forEach((tarjeta) => {
+        const categoriaTarjeta = tarjeta.getAttribute("data-categoria");
+
+        if (filtro === "todos" || filtro === categoriaTarjeta) {
+          tarjeta.style.display = "block";
+        } else {
+          tarjeta.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const buscador = document.getElementById("input-busqueda");
+    const botones = document.querySelectorAll(".btn-filtro");
+    const tarjetas = document.querySelectorAll(".card");
+
+    // Función principal de filtrado
+    function filtrarProductos() {
+      const texto = buscador.value.toLowerCase(); // Lo que escribió el usuario
+      const botonActivo = document.querySelector(".btn-filtro.activo");
+      const categoriaFiltro = botonActivo.getAttribute("data-categoria");
+
+      tarjetas.forEach((tarjeta) => {
+        const nombreProducto = tarjeta
+          .querySelector("h3")
+          .textContent.toLowerCase();
+        const categoriaProducto = tarjeta.getAttribute("data-categoria");
+
+        // Condición 1: ¿Coincide el texto buscado?
+        const coincideTexto = nombreProducto.includes(texto);
+
+        // Condición 2: ¿Coincide la categoría?
+        const coincideCategoria =
+          categoriaFiltro === "todos" || categoriaFiltro === categoriaProducto;
+
+        // Si cumple AMBAS, se muestra, si no, se esconde
+        if (coincideTexto && coincideCategoria) {
+          tarjeta.style.display = "block";
+        } else {
+          tarjeta.style.display = "none";
+        }
+      });
+    }
+
+    // Escuchar cuando el usuario escribe en el buscador
+    buscador.addEventListener("input", filtrarProductos);
+
+    // Escuchar cuando el usuario hace clic en los botones
+    botones.forEach((boton) => {
+      boton.addEventListener("click", () => {
+        botones.forEach((b) => b.classList.remove("activo"));
+        boton.classList.add("activo");
+        filtrarProductos(); // Volver a filtrar al cambiar categoría
+      });
+    });
+  });
+</script>
