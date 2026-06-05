@@ -1,15 +1,16 @@
 <header class="header">
   <div class="left">
-    <h1>Artesanias Killa</h1>
+    <h1>🌙 Artesanías Killa</h1>
   </div>
 
-  <div class="right">
+  <nav class="right">
     <a href="/">Inicio</a>
-    <a href="/catalogo">catálogo</a>
+    <a href="/catalogo">Catálogo</a>
+
     <a href="/contacto">
       <button>Contactar</button>
     </a>
-  </div>
+  </nav>
 </header>
 
 <style>
@@ -17,39 +18,96 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgb(134, 190, 220);
-    padding: 1rem 2rem;
-    position: sticky; /* Hace que se quede pegado */
-    top: 0; /* Define que se pegue al borde superior */
+
+    padding: 1rem 3rem;
+
+    position: sticky;
+    top: 0;
     z-index: 1000;
+
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .left h1 {
     margin: 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #2c3e50;
+    letter-spacing: 1px;
   }
 
   .right {
     display: flex;
-    gap: 1rem;
     align-items: center;
+    gap: 2rem;
   }
 
-  a {
+  .right a {
     text-decoration: none;
-    color: black;
-    font-weight: bold;
+    color: #34495e;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .right a:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #3498db;
+    transition: width 0.3s ease;
+  }
+
+  .right a:not(:last-child):hover::after {
+    width: 100%;
+  }
+
+  .right a:not(:last-child):hover {
+    color: #3498db;
   }
 
   button {
-    background: black;
+    background: linear-gradient(135deg, #3498db, #6c63ff);
+
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    padding: 0.8rem 1.4rem;
+
+    border-radius: 999px;
+
+    font-weight: 700;
     cursor: pointer;
+
+    transition: all 0.3s ease;
   }
 
   button:hover {
-    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.35);
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .right {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .left h1 {
+      font-size: 1.4rem;
+    }
   }
 </style>
